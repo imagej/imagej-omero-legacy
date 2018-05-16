@@ -6,6 +6,7 @@ import ij.gui.OvalRoi;
 import ij.gui.PointRoi;
 import ij.gui.PolygonRoi;
 import ij.gui.Roi;
+import ij.gui.TextRoi;
 
 import net.imagej.legacy.convert.roi.box.BoxWrapper;
 import net.imagej.legacy.convert.roi.ellipsoid.EllipsoidWrapper;
@@ -14,6 +15,8 @@ import net.imagej.legacy.convert.roi.point.PointMaskWrapper;
 import net.imagej.legacy.convert.roi.polygon2d.Polygon2DWrapper;
 import net.imagej.legacy.convert.roi.polyline.PolylineWrapper;
 import net.imagej.omero.legacy.LegacyOMEROROIService;
+import net.imagej.omero.legacy.text.OMEROText;
+import net.imagej.omero.legacy.text.OMEROTextWrapper;
 import net.imagej.omero.roi.OMERORealMask;
 import net.imagej.omero.roi.ellipse.OMEROEllipse;
 import net.imagej.omero.roi.line.OMEROLine;
@@ -267,6 +270,33 @@ public final class OMERORealMaskToIJROI {
 
 		@Override
 		public String getText(final OMERORectangle omeroRoi) {
+			return omeroRoi.getShape().getText();
+		}
+	}
+
+	/** Converts {@link OMEROText} to {@link TextRoi}. */
+	@Plugin(type = Converter.class, priority = Priority.VERY_HIGH)
+	public static class OMEROTextToTextRoi extends
+		AbstractOMERORealMaskToIJRoi<OMEROText, TextRoi>
+	{
+
+		@Override
+		public Class<OMEROText> getInputType() {
+			return OMEROText.class;
+		}
+
+		@Override
+		public Class<TextRoi> getOutputType() {
+			return TextRoi.class;
+		}
+
+		@Override
+		public TextRoi wrap(final OMEROText omeroRoi) {
+			return new OMEROTextWrapper(omeroRoi);
+		}
+
+		@Override
+		public String getText(final OMEROText omeroRoi) {
 			return omeroRoi.getShape().getText();
 		}
 	}
