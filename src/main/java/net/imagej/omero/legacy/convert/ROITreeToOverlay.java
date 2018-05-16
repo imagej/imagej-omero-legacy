@@ -1,5 +1,5 @@
 
-package net.imagej.omero.legacy;
+package net.imagej.omero.legacy.convert;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -7,6 +7,8 @@ import java.util.List;
 import ij.gui.Overlay;
 import ij.gui.Roi;
 
+import net.imagej.omero.legacy.LazyOverlay;
+import net.imagej.omero.legacy.LegacyOMEROROIService;
 import net.imagej.omero.roi.LazyROITree;
 import net.imagej.omero.roi.OMEROROICollection;
 import net.imagej.roi.ROIService;

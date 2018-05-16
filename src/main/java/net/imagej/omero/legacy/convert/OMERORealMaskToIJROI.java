@@ -1,5 +1,5 @@
 
-package net.imagej.omero.legacy;
+package net.imagej.omero.legacy.convert;
 
 import ij.gui.Line;
 import ij.gui.OvalRoi;
@@ -13,6 +13,7 @@ import net.imagej.legacy.convert.roi.line.LineWrapper;
 import net.imagej.legacy.convert.roi.point.PointMaskWrapper;
 import net.imagej.legacy.convert.roi.polygon2d.Polygon2DWrapper;
 import net.imagej.legacy.convert.roi.polyline.PolylineWrapper;
+import net.imagej.omero.legacy.LegacyOMEROROIService;
 import net.imagej.omero.roi.OMERORealMask;
 import net.imagej.omero.roi.ellipse.OMEROEllipse;
 import net.imagej.omero.roi.line.OMEROLine;
