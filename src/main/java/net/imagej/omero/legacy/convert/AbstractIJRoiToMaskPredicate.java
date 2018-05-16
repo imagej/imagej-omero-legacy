@@ -1,5 +1,5 @@
 
-package net.imagej.omero.legacy;
+package net.imagej.omero.legacy.convert;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -9,6 +9,7 @@ import ij.gui.Roi;
 import net.imagej.legacy.convert.roi.AbstractRoiToMaskPredicateConverter;
 import net.imagej.legacy.convert.roi.MaskPredicateWrapper;
 import net.imagej.omero.OMEROService;
+import net.imagej.omero.legacy.LegacyOMEROROIService;
 import net.imglib2.RealLocalizable;
 import net.imglib2.roi.MaskPredicate;
 

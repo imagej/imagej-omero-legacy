@@ -1,5 +1,5 @@
 
-package net.imagej.omero.legacy;
+package net.imagej.omero.legacy.convert;
 
 import java.util.Collections;
 
@@ -8,21 +8,18 @@ import net.imagej.roi.ROITree;
 import net.imglib2.roi.MaskPredicate;
 
 import org.scijava.convert.AbstractConverter;
-import org.scijava.convert.ConvertService;
 import org.scijava.convert.Converter;
-import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 /**
- * Converts a {@link ij.gui.Roi} to a {@link ROITree}.
+ * Converts a {@link MaskPredicate} to a {@link ROITree}.
  *
  * @author Alison Walter
  */
 @Plugin(type = Converter.class)
-public class IJROIToROITree extends AbstractConverter<ij.gui.Roi, ROITree> {
-
-	@Parameter
-	private ConvertService convert;
+public class MaskPredicateToROITree extends
+	AbstractConverter<MaskPredicate<?>, ROITree>
+{
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -33,9 +30,8 @@ public class IJROIToROITree extends AbstractConverter<ij.gui.Roi, ROITree> {
 			throw new IllegalArgumentException("Expected " + getOutputType() +
 				" but received " + dest);
 
-		final MaskPredicate<?> mp = convert.convert(src, MaskPredicate.class);
 		final ROITree tree = new DefaultROITree();
-		tree.addROIs(Collections.singletonList(mp));
+		tree.addROIs(Collections.singletonList((MaskPredicate<?>) src));
 		return (T) tree;
 	}
 
@@ -45,8 +41,9 @@ public class IJROIToROITree extends AbstractConverter<ij.gui.Roi, ROITree> {
 	}
 
 	@Override
-	public Class<ij.gui.Roi> getInputType() {
-		return ij.gui.Roi.class;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Class<MaskPredicate<?>> getInputType() {
+		return (Class) MaskPredicate.class;
 	}
 
 }

@@ -1,5 +1,5 @@
 
-package net.imagej.omero.legacy;
+package net.imagej.omero.legacy.convert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import java.util.Map;
 import ij.gui.Overlay;
 import ij.gui.Roi;
 
+import net.imagej.omero.legacy.LazyOverlay;
+import net.imagej.omero.legacy.LegacyOMEROROIService;
 import net.imagej.omero.roi.DefaultOMEROROICollection;
 import net.imagej.omero.roi.DefaultOMEROROIElement;
 import net.imagej.omero.roi.OMEROROICollection;

@@ -1,5 +1,5 @@
 
-package net.imagej.omero.legacy;
+package net.imagej.omero.legacy.convert;
 
 import ij.gui.OvalRoi;
 import ij.gui.PointRoi;
