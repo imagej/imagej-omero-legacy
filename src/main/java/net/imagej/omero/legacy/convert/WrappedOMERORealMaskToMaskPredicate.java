@@ -15,6 +15,8 @@ import net.imagej.legacy.convert.roi.point.PointMaskWrapper;
 import net.imagej.legacy.convert.roi.polygon2d.Polygon2DWrapper;
 import net.imagej.legacy.convert.roi.polyline.PolylineWrapper;
 import net.imagej.omero.legacy.LegacyOMEROROIService;
+import net.imagej.omero.legacy.text.OMEROText;
+import net.imagej.omero.legacy.text.OMEROTextWrapper;
 import net.imagej.omero.roi.OMERORealMask;
 import net.imagej.omero.roi.ellipse.OMEROEllipse;
 import net.imagej.omero.roi.line.OMEROLine;
@@ -313,6 +315,31 @@ public final class WrappedOMERORealMaskToMaskPredicate {
 					.getShape();
 				d.setText(wrapper.getName());
 			}
+		}
+	}
+
+	/**
+	 * Converts {@link OMEROTextWrapper} which wraps {@link OMEROText} to
+	 * {@link OMEROText}.
+	 */
+	@Plugin(type = Converter.class, priority = Priority.VERY_HIGH)
+	public static class WrappedOMEROTextToOMEROText extends
+		AbstractWrappedOMERORealMaskToMaskPredicate<OMEROTextWrapper, OMEROText>
+	{
+
+		@Override
+		public Class<OMEROText> getOutputType() {
+			return OMEROText.class;
+		}
+
+		@Override
+		public Class<OMEROTextWrapper> getInputType() {
+			return OMEROTextWrapper.class;
+		}
+
+		@Override
+		public void setText(final OMEROTextWrapper wrapper) {
+			// Do nothing
 		}
 	}
 }

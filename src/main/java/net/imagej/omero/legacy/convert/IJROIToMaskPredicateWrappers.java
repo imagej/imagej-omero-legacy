@@ -6,6 +6,7 @@ import ij.gui.PointRoi;
 import ij.gui.PolygonRoi;
 import ij.gui.Roi;
 import ij.gui.ShapeRoi;
+import ij.gui.TextRoi;
 
 import net.imagej.legacy.convert.roi.RoiToMaskIntervalConverter;
 import net.imagej.legacy.convert.roi.ShapeRoiToMaskRealIntervalConverter;
@@ -17,6 +18,8 @@ import net.imagej.legacy.convert.roi.polygon2d.PolygonRoiToPolygon2DConverter;
 import net.imagej.legacy.convert.roi.polyline.PolylineRoiToPolylineConverter;
 import net.imagej.legacy.convert.roi.polyline.PolylineRoiToRealMaskRealIntervalConverter;
 import net.imagej.omero.OMEROService;
+import net.imagej.omero.legacy.text.TextRoiToTextRoiWrapper;
+import net.imagej.omero.legacy.text.TextRoiWrapper;
 import net.imglib2.RealLocalizable;
 import net.imglib2.roi.MaskInterval;
 import net.imglib2.roi.MaskPredicate;
@@ -224,6 +227,26 @@ public class IJROIToMaskPredicateWrappers {
 		private synchronized void createConverter() {
 			if (converter != null) return;
 			converter = new ShapeRoiToMaskRealIntervalConverter();
+		}
+	}
+
+	/** Converts a {@link TextRoi} to {@link TextRoiWrapper} */
+	@Plugin(type = Converter.class, priority = Priority.EXTREMELY_HIGH)
+	public static final class TextRoiToTextRoiWrapperOMEROConverter extends
+		AbstractIJRoiToMaskPredicate<TextRoi, TextRoiWrapper, TextRoiToTextRoiWrapper>
+	{
+
+		private TextRoiToTextRoiWrapper converter;
+
+		@Override
+		public TextRoiToTextRoiWrapper getConverter() {
+			if (converter == null) createConverter();
+			return converter;
+		}
+
+		private synchronized void createConverter() {
+			if (converter != null) return;
+			converter = new TextRoiToTextRoiWrapper();
 		}
 	}
 
