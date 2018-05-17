@@ -96,7 +96,11 @@
 		<releaseProfiles>deploy-to-imagej</releaseProfiles>
 
 		<imagej-common.version>0.26.1</imagej-common.version>
+		<imagej-legacy.version>0.30.0-SNAPSHOT</imagej-legacy.version>
+		<imagej-omero.version>0.4.2-SNAPSHOT</imagej-omero.version>
 		<scijava-common.version>2.73.1</scijava-common.version>
+
+		<enforcer.skip>true</enforcer.skip>
 	</properties>
 
 	<repositories>
