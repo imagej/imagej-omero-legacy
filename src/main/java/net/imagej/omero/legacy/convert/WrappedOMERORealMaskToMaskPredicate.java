@@ -15,11 +15,13 @@ import net.imagej.legacy.convert.roi.point.PointMaskWrapper;
 import net.imagej.legacy.convert.roi.polygon2d.Polygon2DWrapper;
 import net.imagej.legacy.convert.roi.polyline.PolylineWrapper;
 import net.imagej.omero.legacy.LegacyOMEROROIService;
+import net.imagej.omero.legacy.mask.OMEROMaskWrapper;
 import net.imagej.omero.legacy.text.OMEROText;
 import net.imagej.omero.legacy.text.OMEROTextWrapper;
 import net.imagej.omero.roi.OMERORealMask;
 import net.imagej.omero.roi.ellipse.OMEROEllipse;
 import net.imagej.omero.roi.line.OMEROLine;
+import net.imagej.omero.roi.mask.OMEROMask;
 import net.imagej.omero.roi.point.OMEROPoint;
 import net.imagej.omero.roi.polygon.OMEROPolygon;
 import net.imagej.omero.roi.polyline.OMEROPolyline;
@@ -30,6 +32,7 @@ import ome.formats.model.UnitsFactory;
 import omero.RInt;
 import omero.gateway.model.EllipseData;
 import omero.gateway.model.LineData;
+import omero.gateway.model.MaskData;
 import omero.gateway.model.PointData;
 import omero.gateway.model.PolygonData;
 import omero.gateway.model.PolylineData;
@@ -110,8 +113,7 @@ public final class WrappedOMERORealMaskToMaskPredicate {
 			// NB: If showAllSliceOnly and isMacro are both false, ImageJ overwrites
 			// the position
 			boolean ignoreIJPosition = false;
-			if (!Prefs.showAllSliceOnly && !IJ.isMacro())
-				ignoreIJPosition = true;
+			if (!Prefs.showAllSliceOnly && !IJ.isMacro()) ignoreIJPosition = true;
 
 			final Shape s = (Shape) omeroRoi.asIObject();
 			s.setTheZ(computePosition(ignoreIJPosition, ijRoi.getProperty(
@@ -200,6 +202,31 @@ public final class WrappedOMERORealMaskToMaskPredicate {
 		public void setText(final LineWrapper wrapper) {
 			if (wrapper.getName() != null && !wrapper.getName().isEmpty()) {
 				final LineData d = ((OMEROLine) wrapper.getSource()).getShape();
+				d.setText(wrapper.getName());
+			}
+		}
+	}
+
+	/** Converts {@link OMEROMaskWrapper} to {@link OMEROMask}. */
+	@Plugin(type = Converter.class, priority = Priority.VERY_HIGH)
+	public static class OMEROMaskWrapperToOMEROMask extends
+		AbstractWrappedOMERORealMaskToMaskPredicate<OMEROMaskWrapper, OMEROMask>
+	{
+
+		@Override
+		public Class<OMEROMask> getOutputType() {
+			return OMEROMask.class;
+		}
+
+		@Override
+		public Class<OMEROMaskWrapper> getInputType() {
+			return OMEROMaskWrapper.class;
+		}
+
+		@Override
+		public void setText(final OMEROMaskWrapper wrapper) {
+			if (wrapper.getName() != null && !wrapper.getName().isEmpty()) {
+				final MaskData d = wrapper.getSource().getShape();
 				d.setText(wrapper.getName());
 			}
 		}
