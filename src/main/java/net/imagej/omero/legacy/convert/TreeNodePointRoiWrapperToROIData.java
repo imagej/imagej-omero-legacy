@@ -5,24 +5,24 @@ import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.List;
 
-import ij.gui.PointRoi;
-
 import net.imagej.legacy.convert.roi.point.PointRoiWrapper;
 import net.imagej.omero.roi.point.TreeNodeRPCToROIData;
-import net.imglib2.roi.geom.real.RealPointCollection;
 
+import org.scijava.Priority;
+import org.scijava.convert.AbstractConverter;
+import org.scijava.convert.ConvertService;
+import org.scijava.convert.Converter;
+import org.scijava.plugin.Parameter;
+import org.scijava.plugin.Plugin;
+import org.scijava.util.TreeNode;
+
+import ij.gui.PointRoi;
 import ome.formats.model.UnitsFactory;
 import omero.gateway.model.PointData;
 import omero.gateway.model.ROIData;
 import omero.gateway.model.ShapeData;
 import omero.model.LengthI;
 import omero.model.Point;
-
-import org.scijava.Priority;
-import org.scijava.convert.AbstractConverter;
-import org.scijava.convert.Converter;
-import org.scijava.plugin.Plugin;
-import org.scijava.util.TreeNode;
 
 /**
  * Converts a {@link PointRoiWrapper} to a {@link ROIData}. Since
@@ -37,7 +37,8 @@ public class TreeNodePointRoiWrapperToROIData extends
 	AbstractConverter<TreeNode<PointRoiWrapper>, ROIData>
 {
 
-	private Converter<TreeNode<RealPointCollection<?>>, ROIData> converter;
+	@Parameter
+	private ConvertService convertService;
 
 	@Override
 	public boolean canConvert(final Object src, final Type dest) {
@@ -75,8 +76,8 @@ public class TreeNodePointRoiWrapperToROIData extends
 			throw new IllegalArgumentException("Expected: " + getOutputType() +
 				" Received: " + dest);
 
-		if (converter == null) createConverter();
-		final ROIData roiData = converter.convert(src, ROIData.class);
+		final ROIData roiData = convertService.getInstance(
+			TreeNodeRPCToROIData.class).convert(src, ROIData.class);
 		final PointRoi ijRoi = ((PointRoiWrapper) ((TreeNode<?>) src).data())
 			.getRoi();
 
@@ -115,8 +116,4 @@ public class TreeNodePointRoiWrapperToROIData extends
 			ijPoint.getFillColor());
 	}
 
-	private synchronized void createConverter() {
-		if (converter != null) return;
-		converter = new TreeNodeRPCToROIData();
-	}
 }
