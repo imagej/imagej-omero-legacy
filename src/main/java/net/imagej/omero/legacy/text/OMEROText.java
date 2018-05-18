@@ -37,10 +37,12 @@ public class OMEROText implements OMERORealMaskRealInterval<TextData> {
 		return text.getText();
 	}
 
+	/** Returns the x coordinate of the lower left corner of the text. */
 	public double getX() {
 		return text.getX();
 	}
 
+	/** Returns the y coordinate of the lower left corner of the text. */
 	public double getY() {
 		return text.getY();
 	}
@@ -49,10 +51,15 @@ public class OMEROText implements OMERORealMaskRealInterval<TextData> {
 		this.text.setText(text);
 	}
 
+	/** Sets the x coordinate of where the text starts. */
 	public void setX(final double x) {
 		text.setX(x);
 	}
 
+	/**
+	 * Sets the y coordinate of the <strong>base</strong> of where the text
+	 * starts. In other words the lower, left corner of where the text starts.
+	 */
 	public void setY(final double y) {
 		text.setY(y);
 	}
