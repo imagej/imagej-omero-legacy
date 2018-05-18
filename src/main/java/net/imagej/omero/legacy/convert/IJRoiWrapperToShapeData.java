@@ -21,13 +21,6 @@ import net.imagej.omero.roi.mask.RealMaskRealIntervalToMaskData;
 import net.imagej.omero.roi.polygon.ImageJToOMEROPolygon;
 import net.imagej.omero.roi.polyline.ImageJToOMEROPolyline;
 import net.imagej.omero.roi.rectangle.ImageJToOMERORectangle;
-import net.imglib2.roi.MaskInterval;
-import net.imglib2.roi.RealMaskRealInterval;
-import net.imglib2.roi.geom.real.Box;
-import net.imglib2.roi.geom.real.Ellipsoid;
-import net.imglib2.roi.geom.real.Line;
-import net.imglib2.roi.geom.real.Polygon2D;
-import net.imglib2.roi.geom.real.Polyline;
 
 import ome.formats.model.UnitsFactory;
 import omero.gateway.model.EllipseData;
@@ -43,7 +36,9 @@ import omero.model.Shape;
 
 import org.scijava.Priority;
 import org.scijava.convert.AbstractConverter;
+import org.scijava.convert.ConvertService;
 import org.scijava.convert.Converter;
+import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 /**
@@ -104,7 +99,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<DefaultRoiWrapper<?>, MaskData>
 	{
 
-		private Converter<MaskInterval, MaskData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -119,14 +115,10 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public MaskData convert(final DefaultRoiWrapper<?> wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, MaskData.class);
+			return convertService.getInstance(MaskIntervalToMaskData.class).convert(
+				wrapper, MaskData.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new MaskIntervalToMaskData();
-		}
 	}
 
 	/**
@@ -138,7 +130,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<IJLineWrapper, LineData>
 	{
 
-		private Converter<Line, LineData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<IJLineWrapper> getInputType() {
@@ -152,13 +145,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public LineData convert(final IJLineWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, LineData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ImageJToOMEROLine();
+			return convertService.getInstance(ImageJToOMEROLine.class).convert(
+				wrapper, LineData.class);
 		}
 
 	}
@@ -172,7 +160,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<IrregularPolylineRoiWrapper, MaskData>
 	{
 
-		private Converter<RealMaskRealInterval, MaskData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<IrregularPolylineRoiWrapper> getInputType() {
@@ -186,13 +175,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public MaskData convert(final IrregularPolylineRoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, MaskData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new RealMaskRealIntervalToMaskData();
+			return convertService.getInstance(RealMaskRealIntervalToMaskData.class)
+				.convert(wrapper, MaskData.class);
 		}
 
 	}
@@ -206,7 +190,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<OvalRoiWrapper, EllipseData>
 	{
 
-		private Converter<Ellipsoid, EllipseData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<OvalRoiWrapper> getInputType() {
@@ -220,13 +205,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public EllipseData convert(final OvalRoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, EllipseData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ImageJToOMEROEllipse();
+			return convertService.getInstance(ImageJToOMEROEllipse.class).convert(
+				wrapper, EllipseData.class);
 		}
 
 	}
@@ -240,7 +220,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<PolygonRoiWrapper, PolygonData>
 	{
 
-		private Converter<Polygon2D, PolygonData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<PolygonRoiWrapper> getInputType() {
@@ -254,13 +235,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public PolygonData convert(final PolygonRoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, PolygonData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ImageJToOMEROPolygon();
+			return convertService.getInstance(ImageJToOMEROPolygon.class).convert(
+				wrapper, PolygonData.class);
 		}
 
 	}
@@ -274,7 +250,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<PolylineRoiWrapper, PolylineData>
 	{
 
-		private Converter<Polyline, PolylineData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<PolylineRoiWrapper> getInputType() {
@@ -288,13 +265,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public PolylineData convert(final PolylineRoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, PolylineData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ImageJToOMEROPolyline();
+			return convertService.getInstance(ImageJToOMEROPolyline.class).convert(
+				wrapper, PolylineData.class);
 		}
 
 	}
@@ -308,7 +280,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<RoiWrapper, RectangleData>
 	{
 
-		private Converter<Box, RectangleData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<RoiWrapper> getInputType() {
@@ -322,13 +295,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public RectangleData convert(final RoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, RectangleData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ImageJToOMERORectangle();
+			return convertService.getInstance(ImageJToOMERORectangle.class).convert(
+				wrapper, RectangleData.class);
 		}
 
 	}
@@ -342,7 +310,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<ShapeRoiWrapper, MaskData>
 	{
 
-		private Converter<RealMaskRealInterval, MaskData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<ShapeRoiWrapper> getInputType() {
@@ -356,13 +325,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public MaskData convert(final ShapeRoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, MaskData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new RealMaskRealIntervalToMaskData();
+			return convertService.getInstance(RealMaskRealIntervalToMaskData.class)
+				.convert(wrapper, MaskData.class);
 		}
 
 	}
@@ -403,7 +367,8 @@ public class IJRoiWrapperToShapeData {
 		AbstractIJRoiWrapperToShapeData<UnmodifiablePolylineRoiWrapper, PolylineData>
 	{
 
-		private Converter<Polyline, PolylineData> converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public Class<UnmodifiablePolylineRoiWrapper> getInputType() {
@@ -417,13 +382,8 @@ public class IJRoiWrapperToShapeData {
 
 		@Override
 		public PolylineData convert(final UnmodifiablePolylineRoiWrapper wrapper) {
-			if (converter == null) createConverter();
-			return converter.convert(wrapper, PolylineData.class);
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ImageJToOMEROPolyline();
+			return convertService.getInstance(ImageJToOMEROPolyline.class).convert(
+				wrapper, PolylineData.class);
 		}
 
 	}

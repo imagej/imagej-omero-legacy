@@ -32,7 +32,9 @@ import net.imglib2.roi.geom.real.RealPointCollection;
 import net.imglib2.roi.geom.real.WritableEllipsoid;
 
 import org.scijava.Priority;
+import org.scijava.convert.ConvertService;
 import org.scijava.convert.Converter;
+import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 /**
@@ -54,17 +56,12 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<Roi, Box, RoiToBoxConverter>
 	{
 
-		private RoiToBoxConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public RoiToBoxConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
-		}
-
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new RoiToBoxConverter();
+			return convertService.getInstance(RoiToBoxConverter.class);
 		}
 
 	}
@@ -75,18 +72,15 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<PointRoi, RealPointCollection<RealLocalizable>, PointRoiToRealPointCollectionConverter>
 	{
 
-		private PointRoiToRealPointCollectionConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public PointRoiToRealPointCollectionConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(
+				PointRoiToRealPointCollectionConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new PointRoiToRealPointCollectionConverter();
-		}
 	}
 
 	/** Converts a {@link PolygonRoi} to {@link Polygon2D} */
@@ -95,18 +89,14 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<PolygonRoi, Polygon2D, PolygonRoiToPolygon2DConverter>
 	{
 
-		private PolygonRoiToPolygon2DConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public PolygonRoiToPolygon2DConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(PolygonRoiToPolygon2DConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new PolygonRoiToPolygon2DConverter();
-		}
 	}
 
 	/** Converts a {@link PolygonRoi} to {@link Polyline} */
@@ -115,18 +105,14 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<PolygonRoi, Polyline, PolylineRoiToPolylineConverter>
 	{
 
-		private PolylineRoiToPolylineConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public PolylineRoiToPolylineConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(PolylineRoiToPolylineConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new PolylineRoiToPolylineConverter();
-		}
 	}
 
 	/** Converts a {@link PolygonRoi} to {@link RealMaskRealInterval} */
@@ -136,18 +122,15 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<PolygonRoi, RealMaskRealInterval, PolylineRoiToRealMaskRealIntervalConverter>
 	{
 
-		private PolylineRoiToRealMaskRealIntervalConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public PolylineRoiToRealMaskRealIntervalConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(
+				PolylineRoiToRealMaskRealIntervalConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new PolylineRoiToRealMaskRealIntervalConverter();
-		}
 	}
 
 	/** Converts a {@link OvalRoi} to {@link WritableEllipsoid} */
@@ -156,18 +139,14 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<OvalRoi, WritableEllipsoid, OvalRoiToEllipsoidConverter>
 	{
 
-		private OvalRoiToEllipsoidConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public OvalRoiToEllipsoidConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(OvalRoiToEllipsoidConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new OvalRoiToEllipsoidConverter();
-		}
 	}
 
 	/** Converts a {@link Roi} to {@link MaskInterval} */
@@ -176,18 +155,14 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<Roi, MaskInterval, RoiToMaskIntervalConverter>
 	{
 
-		private RoiToMaskIntervalConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public RoiToMaskIntervalConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(RoiToMaskIntervalConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new RoiToMaskIntervalConverter();
-		}
 	}
 
 	/** Converts a {@link ij.gui.Line} to {@link Line} */
@@ -196,18 +171,14 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<ij.gui.Line, Line, IJLineToLineConverter>
 	{
 
-		private IJLineToLineConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public IJLineToLineConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(IJLineToLineConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new IJLineToLineConverter();
-		}
 	}
 
 	/** Converts a {@link ShapeRoi} to {@link RealMaskRealInterval} */
@@ -216,18 +187,15 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<ShapeRoi, RealMaskRealInterval, ShapeRoiToMaskRealIntervalConverter>
 	{
 
-		private ShapeRoiToMaskRealIntervalConverter converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public ShapeRoiToMaskRealIntervalConverter getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(
+				ShapeRoiToMaskRealIntervalConverter.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new ShapeRoiToMaskRealIntervalConverter();
-		}
 	}
 
 	/** Converts a {@link TextRoi} to {@link TextRoiWrapper} */
@@ -236,18 +204,14 @@ public class IJROIToMaskPredicateWrappers {
 		AbstractIJRoiToMaskPredicate<TextRoi, TextRoiWrapper, TextRoiToTextRoiWrapper>
 	{
 
-		private TextRoiToTextRoiWrapper converter;
+		@Parameter
+		private ConvertService convertService;
 
 		@Override
 		public TextRoiToTextRoiWrapper getConverter() {
-			if (converter == null) createConverter();
-			return converter;
+			return convertService.getInstance(TextRoiToTextRoiWrapper.class);
 		}
 
-		private synchronized void createConverter() {
-			if (converter != null) return;
-			converter = new TextRoiToTextRoiWrapper();
-		}
 	}
 
 }
