@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>22.0.2</version>
+		<version>22.1.0</version>
 		<relativePath />
 	</parent>
 
@@ -124,11 +124,14 @@
 			<artifactId>imagej-legacy</artifactId>
 		</dependency>
 
-
 		<!-- ImgLib2 dependencies -->
 		<dependency>
 			<groupId>net.imglib2</groupId>
 			<artifactId>imglib2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.imglib2</groupId>
+			<artifactId>imglib2-realtransform</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.imglib2</groupId>
@@ -141,11 +144,14 @@
 			<artifactId>scijava-common</artifactId>
 		</dependency>
 
-		<!-- Test dependencies -->
+		<!-- OMERO dependencies -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>omero</groupId>
+			<artifactId>blitz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>omero</groupId>
+			<artifactId>model-psql</artifactId>
 		</dependency>
 	</dependencies>
 </project>
