@@ -46,15 +46,15 @@ public class LegacyOMEROROIService extends DefaultROIService {
 	public void add(final Object roi, final Object img) {
 		if (img instanceof Dataset) {
 			final ROITree rp = convert.convert(roi, ROITree.class);
-			addRois(((Dataset) img).getImgPlus(), rp);
+			addROIs(((Dataset) img).getImgPlus(), rp);
 		}
 		else if (img instanceof ImgPlus) {
 			final ROITree rp = convert.convert(roi, ROITree.class);
-			addRois((ImgPlus<?>) img, rp);
+			addROIs((ImgPlus<?>) img, rp);
 		}
 		else if (img instanceof ImagePlus) {
 			final Overlay o = convert.convert(roi, Overlay.class);
-			addRois((ImagePlus) img, o);
+			addROIs(img, o);
 		}
 		else throw new IllegalArgumentException("Cannot add " + roi.getClass() +
 			" to " + img.getClass());
@@ -77,7 +77,7 @@ public class LegacyOMEROROIService extends DefaultROIService {
 
 	// -- Helper methods --
 
-	private void addRois(final ImgPlus<?> img, final ROITree rp) {
+	private void addROIs(final ImgPlus<?> img, final ROITree rp) {
 		if (img.getProperties().get("rois") != null) {
 			final ROITree currentROIs = (ROITree) img.getProperties().get("rois");
 			final List<TreeNode<?>> currentChildren = currentROIs.children();
@@ -89,15 +89,28 @@ public class LegacyOMEROROIService extends DefaultROIService {
 		else img.getProperties().put("rois", rp);
 	}
 
-	private void addRois(final ImagePlus i, final Overlay rois) {
-		if (i.getOverlay() != null) {
+	// NB: We cannot type this method on ij.* classes.
+	// Otherwise, the ij1-patcher may fail to patch ImageJ1.
+	private void addROIs(final Object image, final Object rois) {
+		if (!(image instanceof ImagePlus)) {
+			throw new IllegalStateException("Non-ImagePlus image: " +
+				image.getClass().getName());
+		}
+		if (!(rois instanceof Overlay)) {
+			throw new IllegalStateException("Non-Overlay rois: " +
+				rois.getClass().getName());
+		}
+		final ImagePlus imp  = (ImagePlus) image;
+		final Overlay overlay = (Overlay) rois;
+
+		if (imp.getOverlay() != null) {
 			// HACK: if rois is a LazyOverlay, we need to force the ROIs to be loaded
-			final ij.gui.Roi[] newROIs = rois.toArray();
-			final Overlay currentROIs = i.getOverlay();
+			final ij.gui.Roi[] newROIs = overlay.toArray();
+			final Overlay currentROIs = imp.getOverlay();
 			for (int r = 0; r < newROIs.length; r++)
 				currentROIs.add(newROIs[r]);
 		}
-		else i.setOverlay(rois);
+		else imp.setOverlay(overlay);
 	}
 
 	private boolean hasROIs(final TreeNode<?> dn) {
