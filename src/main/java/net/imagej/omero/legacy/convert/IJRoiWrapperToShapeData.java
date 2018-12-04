@@ -18,8 +18,8 @@ import net.imagej.omero.roi.ellipse.ImageJToOMEROEllipse;
 import net.imagej.omero.roi.line.ImageJToOMEROLine;
 import net.imagej.omero.roi.mask.MaskIntervalToMaskData;
 import net.imagej.omero.roi.mask.RealMaskRealIntervalToMaskData;
-import net.imagej.omero.roi.polygon.ImageJToOMEROPolygon;
-import net.imagej.omero.roi.polyline.ImageJToOMEROPolyline;
+import net.imagej.omero.roi.polyshape.ImageJToOMEROPolygon;
+import net.imagej.omero.roi.polyshape.ImageJToOMEROPolyline;
 import net.imagej.omero.roi.rectangle.ImageJToOMERORectangle;
 
 import ome.formats.model.UnitsFactory;

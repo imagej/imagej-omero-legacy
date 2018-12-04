@@ -24,8 +24,8 @@ import net.imagej.omero.roi.ellipse.OMEROEllipse;
 import net.imagej.omero.roi.line.OMEROLine;
 import net.imagej.omero.roi.mask.OMEROMask;
 import net.imagej.omero.roi.point.OMEROPoint;
-import net.imagej.omero.roi.polygon.OMEROPolygon;
-import net.imagej.omero.roi.polyline.OMEROPolyline;
+import net.imagej.omero.roi.polyshape.OMEROPolygon;
+import net.imagej.omero.roi.polyshape.OMEROPolyline;
 import net.imagej.omero.roi.rectangle.OMERORectangle;
 import net.imglib2.roi.MaskPredicate;
 
