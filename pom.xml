@@ -60,10 +60,10 @@
 		</mailingList>
 		<mailingList>
 			<name>OME-devel</name>
-			<subscribe>http://lists.openmicroscopy.org.uk/mailman/listinfo/ome-devel/</subscribe>
-			<unsubscribe>http://lists.openmicroscopy.org.uk/mailman/listinfo/ome-devel/</unsubscribe>
+			<subscribe>https://lists.openmicroscopy.org.uk/mailman/listinfo/ome-devel/</subscribe>
+			<unsubscribe>https://lists.openmicroscopy.org.uk/mailman/listinfo/ome-devel/</unsubscribe>
 			<post>ome-devel@lists.openmicroscopy.org.uk</post>
-			<archive>http://lists.openmicroscopy.org.uk/pipermail/ome-devel/</archive>
+			<archive>https://lists.openmicroscopy.org.uk/pipermail/ome-devel/</archive>
 		</mailingList>
 	</mailingLists>
 
