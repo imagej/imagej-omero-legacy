@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>26.0.0</version>
+		<version>28.0.0</version>
 		<relativePath />
 	</parent>
 
 	<groupId>net.imagej</groupId>
 	<artifactId>imagej-omero-legacy</artifactId>
-	<version>0.1.3-SNAPSHOT</version>
+	<version>1.0.0-5.5-SNAPSHOT</version>
 
 	<name>ImageJ-OMERO Legacy</name>
 	<description>ImageJ 1.x support for ImageJ-OMERO.</description>
@@ -94,6 +94,8 @@
 
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>deploy-to-scijava</releaseProfiles>
+
+		<imagej-omero.version>1.0.0-5.5</imagej-omero.version>
 	</properties>
 
 	<repositories>
@@ -146,12 +148,16 @@
 
 		<!-- OMERO dependencies -->
 		<dependency>
-			<groupId>omero</groupId>
-			<artifactId>blitz</artifactId>
+			<groupId>org.openmicroscopy</groupId>
+			<artifactId>omero-blitz</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>omero</groupId>
-			<artifactId>model-psql</artifactId>
+			<groupId>org.openmicroscopy</groupId>
+			<artifactId>omero-gateway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openmicroscopy</groupId>
+			<artifactId>omero-model</artifactId>
 		</dependency>
 	</dependencies>
 </project>
