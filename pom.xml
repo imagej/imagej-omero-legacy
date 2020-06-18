@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>28.0.0</version>
+		<version>29.0.0-beta-2</version>
 		<relativePath />
 	</parent>
 
 	<groupId>net.imagej</groupId>
 	<artifactId>imagej-omero-legacy</artifactId>
-	<version>1.0.0-5.5-SNAPSHOT</version>
+	<version>999</version>
 
 	<name>ImageJ-OMERO Legacy</name>
 	<description>ImageJ 1.x support for ImageJ-OMERO.</description>
@@ -95,7 +95,7 @@
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>deploy-to-scijava</releaseProfiles>
 
-		<imagej-omero.version>1.0.0-5.5</imagej-omero.version>
+		<imagej-omero.version>999</imagej-omero.version> <!--TEMP-->
 	</properties>
 
 	<repositories>
