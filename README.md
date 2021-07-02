@@ -1,4 +1,4 @@
-[![](https://travis-ci.com/imagej/imagej-omero-legacy.svg?branch=master)](https://travis-ci.com/imagej/imagej-omero-legacy)
+[![](https://github.com/imagej/imagej-omero-legacy/actions/workflows/build-main.yml/badge.svg)](https://github.com/imagej/imagej-omero-legacy/actions/workflows/build-main.yml)
 
 # ImageJ-OMERO Legacy
 
