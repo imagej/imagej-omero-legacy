@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>26.0.0</version>
+		<version>32.0.0-beta-5</version>
 		<relativePath />
 	</parent>
 
@@ -142,16 +142,6 @@
 		<dependency>
 			<groupId>org.scijava</groupId>
 			<artifactId>scijava-common</artifactId>
-		</dependency>
-
-		<!-- OMERO dependencies -->
-		<dependency>
-			<groupId>omero</groupId>
-			<artifactId>blitz</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>omero</groupId>
-			<artifactId>model-psql</artifactId>
 		</dependency>
 	</dependencies>
 </project>
