@@ -104,10 +104,12 @@ public class LegacyOMEROROIService extends DefaultROIService {
 	private void addROIs(final ImgPlus<?> img, final ROITree rp) {
 		if (img.getProperties().get("rois") != null) {
 			final ROITree currentROIs = (ROITree) img.getProperties().get("rois");
-			final List<TreeNode<?>> currentChildren = currentROIs.children();
-			for (final TreeNode<?> child : rp.children()) {
-				child.setParent(currentROIs);
-				currentChildren.add(child);
+			if (!currentROIs.equals(rp)) {
+				final List<TreeNode<?>> currentChildren = currentROIs.children();
+				for (final TreeNode<?> child : rp.children()) {
+					child.setParent(currentROIs);
+					currentChildren.add(child);
+				}
 			}
 		}
 		else img.getProperties().put("rois", rp);
