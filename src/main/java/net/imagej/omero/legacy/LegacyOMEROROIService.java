@@ -119,14 +119,14 @@ public class LegacyOMEROROIService extends DefaultROIService {
 	// Otherwise, the ij1-patcher may fail to patch ImageJ1.
 	private void addROIs(final Object image, final Object rois) {
 		if (!(image instanceof ImagePlus)) {
-			throw new IllegalStateException("Non-ImagePlus image: " +
-				image.getClass().getName());
+			throw new IllegalStateException("Non-ImagePlus image: " + image.getClass()
+				.getName());
 		}
 		if (!(rois instanceof Overlay)) {
-			throw new IllegalStateException("Non-Overlay rois: " +
-				rois.getClass().getName());
+			throw new IllegalStateException("Non-Overlay rois: " + rois.getClass()
+				.getName());
 		}
-		final ImagePlus imp  = (ImagePlus) image;
+		final ImagePlus imp = (ImagePlus) image;
 		final Overlay overlay = (Overlay) rois;
 
 		if (imp.getOverlay() != null) {
