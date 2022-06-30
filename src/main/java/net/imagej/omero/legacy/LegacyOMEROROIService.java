@@ -102,8 +102,8 @@ public class LegacyOMEROROIService extends DefaultROIService {
 	// -- Helper methods --
 
 	private void addROIs(final ImgPlus<?> img, final ROITree rp) {
-		if (img.getProperties().get("rois") != null) {
-			final ROITree currentROIs = (ROITree) img.getProperties().get("rois");
+		if (img.getProperties().get(ROIService.ROI_PROPERTY) != null) {
+			final ROITree currentROIs = (ROITree) img.getProperties().get(ROIService.ROI_PROPERTY);
 			if (!currentROIs.equals(rp)) {
 				final List<TreeNode<?>> currentChildren = currentROIs.children();
 				for (final TreeNode<?> child : rp.children()) {
@@ -112,7 +112,7 @@ public class LegacyOMEROROIService extends DefaultROIService {
 				}
 			}
 		}
-		else img.getProperties().put("rois", rp);
+		else img.getProperties().put(ROIService.ROI_PROPERTY, rp);
 	}
 
 	// NB: We cannot type this method on ij.* classes.
