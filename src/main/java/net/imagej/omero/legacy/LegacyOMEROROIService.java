@@ -27,9 +27,6 @@ package net.imagej.omero.legacy;
 
 import java.util.List;
 
-import ij.ImagePlus;
-import ij.gui.Overlay;
-
 import net.imagej.Dataset;
 import net.imagej.ImgPlus;
 import net.imagej.roi.DefaultROIService;
@@ -43,6 +40,9 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 import org.scijava.service.Service;
 import org.scijava.util.TreeNode;
+
+import ij.ImagePlus;
+import ij.gui.Overlay;
 
 /**
  * A {@link ROIService} for working with ROIs in OMERO and imagej-legacy.
