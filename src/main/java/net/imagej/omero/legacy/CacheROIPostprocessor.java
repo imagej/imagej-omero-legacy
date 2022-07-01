@@ -58,8 +58,6 @@ public class CacheROIPostprocessor extends AbstractPostprocessorPlugin {
 	@Parameter
 	private CacheService cache;
 
-	private final static String ROI_KEY = "outputROIs";
-
 	@Override
 	public void process(final Module module) {
 		final List<ModuleItem<?>> rois = new ArrayList<>();
@@ -74,10 +72,10 @@ public class CacheROIPostprocessor extends AbstractPostprocessorPlugin {
 			}
 		}
 
-		if (cache.get(ROI_KEY) != null) throw new IllegalArgumentException(
+		if (cache.get(ROIConstants.OUTPUT_CACHE_KEY) != null) throw new IllegalArgumentException(
 			"Unexpected cached ROIs!");
 		if (!rois.isEmpty()) {
-			cache.put(ROI_KEY, ThreadLocal.withInitial(() -> rois));
+			cache.put(ROIConstants.OUTPUT_CACHE_KEY, ThreadLocal.withInitial(() -> rois));
 		}
 	}
 
