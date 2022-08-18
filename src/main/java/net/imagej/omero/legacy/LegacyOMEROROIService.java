@@ -27,9 +27,6 @@ package net.imagej.omero.legacy;
 
 import java.util.List;
 
-import ij.ImagePlus;
-import ij.gui.Overlay;
-
 import net.imagej.Dataset;
 import net.imagej.ImgPlus;
 import net.imagej.roi.DefaultROIService;
@@ -43,6 +40,9 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 import org.scijava.service.Service;
 import org.scijava.util.TreeNode;
+
+import ij.ImagePlus;
+import ij.gui.Overlay;
 
 /**
  * A {@link ROIService} for working with ROIs in OMERO and imagej-legacy.
@@ -102,29 +102,31 @@ public class LegacyOMEROROIService extends DefaultROIService {
 	// -- Helper methods --
 
 	private void addROIs(final ImgPlus<?> img, final ROITree rp) {
-		if (img.getProperties().get("rois") != null) {
-			final ROITree currentROIs = (ROITree) img.getProperties().get("rois");
-			final List<TreeNode<?>> currentChildren = currentROIs.children();
-			for (final TreeNode<?> child : rp.children()) {
-				child.setParent(currentROIs);
-				currentChildren.add(child);
+		if (img.getProperties().get(ROIService.ROI_PROPERTY) != null) {
+			final ROITree currentROIs = (ROITree) img.getProperties().get(ROIService.ROI_PROPERTY);
+			if (!currentROIs.equals(rp)) {
+				final List<TreeNode<?>> currentChildren = currentROIs.children();
+				for (final TreeNode<?> child : rp.children()) {
+					child.setParent(currentROIs);
+					currentChildren.add(child);
+				}
 			}
 		}
-		else img.getProperties().put("rois", rp);
+		else img.getProperties().put(ROIService.ROI_PROPERTY, rp);
 	}
 
 	// NB: We cannot type this method on ij.* classes.
 	// Otherwise, the ij1-patcher may fail to patch ImageJ1.
 	private void addROIs(final Object image, final Object rois) {
 		if (!(image instanceof ImagePlus)) {
-			throw new IllegalStateException("Non-ImagePlus image: " +
-				image.getClass().getName());
+			throw new IllegalStateException("Non-ImagePlus image: " + image.getClass()
+				.getName());
 		}
 		if (!(rois instanceof Overlay)) {
-			throw new IllegalStateException("Non-Overlay rois: " +
-				rois.getClass().getName());
+			throw new IllegalStateException("Non-Overlay rois: " + rois.getClass()
+				.getName());
 		}
-		final ImagePlus imp  = (ImagePlus) image;
+		final ImagePlus imp = (ImagePlus) image;
 		final Overlay overlay = (Overlay) rois;
 
 		if (imp.getOverlay() != null) {

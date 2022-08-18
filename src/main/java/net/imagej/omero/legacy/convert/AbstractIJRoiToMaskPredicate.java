@@ -128,7 +128,7 @@ public abstract class AbstractIJRoiToMaskPredicate<R extends Roi, M extends Mask
 	 * @param ijRoi the {@link Roi} key entry to update
 	 */
 	private void omeroMapping(final ij.gui.Roi ijRoi) {
-		final Set<Object> keys = omero.getROIMappingKeys();
+		final Set<Object> keys = omero.roiCache().getROIMappingKeys();
 
 		if (ijRoi.getProperty(ID_KEY) == null || ijRoi.getProperty(ID_KEY)
 			.isEmpty()) ijRoi.setProperty(ID_KEY, Long.toString(legacyRoi

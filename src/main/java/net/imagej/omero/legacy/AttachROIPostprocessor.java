@@ -65,15 +65,14 @@ public class AttachROIPostprocessor extends AbstractPostprocessorPlugin {
 	@Parameter
 	private ROIService roiService;
 
-	private final static String ROI_KEY = "outputROIs";
 	private static final String ATTACH_IMAGE = "attachToImages";
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public void process(final Module module) {
-		if (cache.get(ROI_KEY) == null) return;
+		if (cache.get(ROIConstants.OUTPUT_CACHE_KEY) == null) return;
 		final List<ModuleItem<?>> roiItems =
-			((ThreadLocal<List<ModuleItem<?>>>) cache.get(ROI_KEY)).get();
+			((ThreadLocal<List<ModuleItem<?>>>) cache.get(ROIConstants.OUTPUT_CACHE_KEY)).get();
 		final List<ModuleItem<?>> resolved = new ArrayList<>();
 
 		for (final ModuleItem<?> item : roiItems) {
@@ -85,7 +84,7 @@ public class AttachROIPostprocessor extends AbstractPostprocessorPlugin {
 
 		for (final ModuleItem<?> item : resolved)
 			roiItems.remove(item);
-		if (roiItems.isEmpty()) cache.put(ROI_KEY, null);
+		if (roiItems.isEmpty()) cache.put(ROIConstants.OUTPUT_CACHE_KEY, null);
 	}
 
 	// -- Helper methods --

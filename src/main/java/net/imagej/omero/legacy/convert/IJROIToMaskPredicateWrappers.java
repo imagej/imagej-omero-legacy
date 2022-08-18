@@ -25,13 +25,6 @@
 
 package net.imagej.omero.legacy.convert;
 
-import ij.gui.OvalRoi;
-import ij.gui.PointRoi;
-import ij.gui.PolygonRoi;
-import ij.gui.Roi;
-import ij.gui.ShapeRoi;
-import ij.gui.TextRoi;
-
 import net.imagej.legacy.convert.roi.RoiToMaskIntervalConverter;
 import net.imagej.legacy.convert.roi.ShapeRoiToMaskRealIntervalConverter;
 import net.imagej.legacy.convert.roi.box.RoiToBoxConverter;
@@ -60,6 +53,13 @@ import org.scijava.convert.ConvertService;
 import org.scijava.convert.Converter;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
+
+import ij.gui.OvalRoi;
+import ij.gui.PointRoi;
+import ij.gui.PolygonRoi;
+import ij.gui.Roi;
+import ij.gui.ShapeRoi;
+import ij.gui.TextRoi;
 
 /**
  * {@link Converter}s for converting {@link ij.gui.Roi} to
