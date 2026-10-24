@@ -1,5 +1,7 @@
 /.classpath
 /.project
 /.settings/
+/.factorypath
 /target/
 .*un~
+/.idea/
